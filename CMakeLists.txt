@@ -13,9 +13,14 @@ vidi_global_property_get_install_dev_headers(in_INSTALL_DEV_HEADERS)
 # └──────────────────────────────────────────────────────────────────┘
 add_library(PVM SHARED ddsbase.cpp)
 
+generate_export_header(PVM BASE_NAME PVM)
+
 target_include_directories(PVM PUBLIC
-  "$<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include;>"
-  "$<INSTALL_INTERFACE:${in_INSTALL_INCDIR}>")
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>)
+target_include_directories(PVM PUBLIC
+  $<BUILD_INTERFACE:${CMAKE_CURRENT_BINARY_DIR}>)
+target_include_directories(PVM PUBLIC
+  $<INSTALL_INTERFACE:${in_INSTALL_INCDIR}>)
 
 set_target_properties(PVM PROPERTIES
   ARCHIVE_OUTPUT_DIRECTORY ${in_LIB_OUTPUT_PATH}
@@ -34,6 +39,8 @@ install(TARGETS PVM EXPORT PVMConfig
 if(in_INSTALL_DEV_HEADERS)
 
   install(DIRECTORY include/ DESTINATION ${in_INSTALL_INCDIR})
+  install(FILES ${CMAKE_CURRENT_BINARY_DIR}/pvm_export.h
+    DESTINATION ${in_INSTALL_INCDIR})
 
   # This makes the project importable from the install directory
   # Put config file in per-project dir (name MUST match), can also
