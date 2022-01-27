@@ -12,7 +12,7 @@ include(GenerateExportHeader)
 # ┌──────────────────────────────────────────────────────────────────┐
 # │  Configure Source Files                                          │
 # └──────────────────────────────────────────────────────────────────┘
-add_library(PVM SHARED 
+add_library(PVM # SHARED 
   ddsbase.cpp
 )
 
