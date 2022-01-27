@@ -18,6 +18,8 @@ add_library(PVM # SHARED
 
 generate_export_header(PVM BASE_NAME PVM)
 
+set_target_properties(PVM PROPERTIES POSITION_INDEPENDENT_CODE ON)
+		    
 target_include_directories(PVM 
 PUBLIC
   $<BUILD_INTERFACE:${CMAKE_CURRENT_LIST_DIR}/include>
